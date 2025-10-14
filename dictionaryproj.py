@@ -1,8 +1,63 @@
-mod2 = {
-    "A Block": "CS2",
-    "B Block": "RUSH",
-    "C Block": "CALC AB"
+mod1 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
 }
+mod2 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+mod3 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+mod4 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+mod5 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+mod6 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+mod7 = {
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+}
+
+classes_list_english = ["English I", "English II", "English III", "English IV"]
+classes_list_math = ["Geometry", "Algebra I", "Algebra II", "Pre-Calculus", "Calculus AB", "Calculus BC", "Statistics", "Linear Algebra", "Differiential Equations" ]
+classes_list_history = ["Globral I", "Global II", "American History", "History Research"]
+classes_list_science = ["Biology", "Chemistry", "Physics"]
+classes_list_languages = ["Spanish I", "Spanish II", ]
+electives = ["CS1", "CS2", "CS3", "Digital Art & Animation", "Drawing", "Painting", "Art Seminar", "Computer Science Seminar", "Robotics", "Public Speaking", "Fibers & Fashion", "Photography", "Sports Psychology", "Ceramics" ]
+d_blocksF = ["Feild Hockey", "Swimming for Conditioning", "Cross Country", "Soccer", "Tennis", "Volleyball", "Yearbook", "Advanced Fitness", "Stagecraft"]
+d_blocksW = ["Basektball", "Rock Climbing", "Swim", "Model UN", "Advanced Fitness", "Yearbook", "Stagecraft"]
+d_blocksS = ["Track & Feild", "Tennis", "Softball", "Lacrosse", "Advanced Fitness", "Nature Walks"]
+e_blocks = ["Chorus", ]
 
 #add class
 def add_class(schedule):
