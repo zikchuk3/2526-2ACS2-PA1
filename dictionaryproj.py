@@ -82,7 +82,7 @@ def make_schedule(block):
     winter = random.choice(d_blocksW)
     spring = random.choice(d_blocksS)
 
-#randomly generate into class variable 
+#randomly generate into class variable and refer to that varaiable to make it 
     for block in mod1:
         if block in ["A Block", "B Block", "C Block"]:
             mod1[block] = random.choice(classes)
