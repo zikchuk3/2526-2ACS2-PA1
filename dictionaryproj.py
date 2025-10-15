@@ -6,7 +6,6 @@ mod1 = {
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
     "E Block": ""
 }
 mod2 = {
@@ -14,42 +13,42 @@ mod2 = {
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 mod3 = {
     "A Block": "",
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 mod4 = {
     "A Block": "",
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 mod5 = {
     "A Block": "",
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 mod6 = {
     "A Block": "",
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 mod7 = {
     "A Block": "",
     "B Block": "",
     "C Block": "",
     "D Block": "",
-    "E Block": "Nothing"
+    "E Block": ""
 }
 # mods= [mod1, mod2, mod3, mod4, mod5, mod6, mod7]
 
@@ -83,6 +82,7 @@ def make_schedule(block):
     winter = random.choice(d_blocksW)
     spring = random.choice(d_blocksS)
 
+#randomly generate into class variable 
     for block in mod1:
         if block in ["A Block", "B Block", "C Block"]:
             mod1[block] = random.choice(classes)
