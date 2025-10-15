@@ -7,6 +7,7 @@ mod1 = {
     "C Block": "",
     "D Block": "",
     "E Block": "Nothing"
+    "E Block": ""
 }
 mod2 = {
     "A Block": "",
@@ -50,6 +51,7 @@ mod7 = {
     "D Block": "",
     "E Block": "Nothing"
 }
+# mods= [mod1, mod2, mod3, mod4, mod5, mod6, mod7]
 
 #lists of classes d blocks and e blocks
 classes_list_english = ["English I", "English II", "English III", "English IV"]
@@ -74,32 +76,48 @@ def make_schedule(block):
     history = random.choice(classes_list_history)
     science = random.choice(classes_list_science)
     lang = random.choice(classes_list_languages)
-    classes = [english, math, history, science, lang]
+    elect = random.choice(electives)
+    classes = [english, math, history, science, lang, elect]
 
-    #fall = random.choice(d_blocksF)
-    #winter = random.choice(d_blocksW)
-    #spring = random.choice(d_blocksS)
+    fall = random.choice(d_blocksF)
+    winter = random.choice(d_blocksW)
+    spring = random.choice(d_blocksS)
 
     for block in mod1:
         if block in ["A Block", "B Block", "C Block"]:
             mod1[block] = random.choice(classes)
-        mod1["D Block"] = random.choice(d_blocksF)
-        mod1["E Block"] = random.choice(e_blocks + ["Nothing"])
+        mod1["D Block"] = fall
+        mod1["E Block"] = random.choice(e_blocks + ["Free"])
     for block in mod2:
         if block in ["A Block", "B Block", "C Block"]:
-            mod1[block] = random.choice(classes)
-        mod1["D Block"] = random.choice(d_blocksF)
-        mod1["E Block"] = random.choice(e_blocks + ["Nothing"])
+            mod2[block] = random.choice(classes)
+        mod2["D Block"] = fall
+        mod2["E Block"] = random.choice(e_blocks + ["Free"])
     for block in mod3:
         if block in ["A Block", "B Block", "C Block"]:
-            mod1[block] = random.choice(classes)
-        mod1["D Block"] = random.choice(d_blocksW)
-        mod1["E Block"] = random.choice(e_blocks + ["Nothing"])
+            mod3[block] = random.choice(classes)
+        mod3["D Block"] = winter
+        mod3["E Block"] = random.choice(e_blocks + ["Free"])
     for block in mod4:
         if block in ["A Block", "B Block", "C Block"]:
-            mod1[block] = random.choice(classes)
-        mod1["D Block"] = random.choice(d_blocksW)
-        mod1["E Block"] = random.choice(e_blocks + ["Nothing"])
+            mod4[block] = random.choice(classes)
+        mod4["D Block"] = winter
+        mod4["E Block"] = random.choice(e_blocks + ["Free"])
+    for block in mod5:
+        if block in ["A Block", "B Block", "C Block"]:
+            mod5[block] = random.choice(classes)
+        mod5["D Block"] = winter
+        mod5["E Block"] = random.choice(e_blocks + ["Free"])
+    for block in mod6:
+        if block in ["A Block", "B Block", "C Block"]:
+            mod6[block] = random.choice(classes)
+        mod6["D Block"] = spring
+        mod6["E Block"] = random.choice(e_blocks + ["Free"])
+    for block in mod7:
+        if block in ["A Block", "B Block", "C Block"]:
+            mod7[block] = random.choice(classes)
+        mod7["D Block"] = spring
+        mod7["E Block"] = random.choice(e_blocks + ["Free"])
 
 #add class
 def add_class(schedule):
