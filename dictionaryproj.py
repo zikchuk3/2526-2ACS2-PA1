@@ -5,6 +5,7 @@ resources:
 enumerate(): https://www.w3schools.com/python/ref_func_enumerate.asp
 set(): https://www.w3schools.com/python/python_sets.asp
 add(): https://www.w3schools.com/python/ref_set_add.asp
+flatten a list: https://www.geeksforgeeks.org/python/python-flatten-list-to-individual-elements/
 '''
 
 import random
@@ -131,7 +132,7 @@ def make_schedule():
 
     #to give random elective
     for mod, block in blocks:
-        mods[mod][block] = random.choice(electives)
+        mods[mod][block] = "Free"
 
     #enumerate takes an iterable (object that can be looped) and loops it at a certain start
     #this is so the mods list of dictionary starts at index 1 (but that index is technically 0 its just named 1) and just makes it easier 
@@ -147,45 +148,6 @@ def make_schedule():
 
     return mods
 
-'''
-#randomly generate into class variable and refer to that varaiable to make it 
-    for block in mod1:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod1[block] = random.choice(classes)
-        mod1["D Block"] = fall
-        mod1["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod2:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod2[block] = random.choice(classes)
-        mod2["D Block"] = fall
-        mod2["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod3:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod3[block] = random.choice(classes)
-        mod3["D Block"] = winter
-        mod3["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod4:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod4[block] = random.choice(classes)
-        mod4["D Block"] = winter
-        mod4["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod5:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod5[block] = random.choice(classes)
-        mod5["D Block"] = winter
-        mod5["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod6:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod6[block] = random.choice(classes)
-        mod6["D Block"] = spring
-        mod6["E Block"] = random.choice(e_blocks + ["Free"])
-    for block in mod7:
-        if block in ["A Block", "B Block", "C Block"]:
-            mod7[block] = random.choice(classes)
-        mod7["D Block"] = spring
-        mod7["E Block"] = random.choice(e_blocks + ["Free"])
-
-'''
 
 #add class
 def add_class(schedule):
@@ -196,28 +158,219 @@ def add_class(schedule):
         print("Error. Please pick enter a number 1-7.")
         mod = int(input("Enter the number of the mod you want to add a class to: "))
 
-    block = input("Enter the letter of the block you want to add the class in: ").upper
-    valid_blocks = ["A", "B", "C", "D", "E"]
+    block = input("Enter the letter of the block you want to add the class in: ").upper()
+    block_names = f"{block} Block"
+    valid_blocks = ["a", "A", "B", "b", "C", "c", "D", "d", "E", "e"]
     while block not in valid_blocks:
         print("Error. Please pick enter: 'A', 'B', 'C', 'D', or 'E' !")
-        block = input("Enter the letter of the block you want to add the class in: ").upper
-
-    added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
-    valid_classes = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, d_blocksF, d_blocksS, d_blocksW, electives, e_blocks]
-    while added_class not in valid_classes:
-        print("Error. Please pick enter a valid class !")
-        print(f"Here is the course calendar if you need reminding: {valid_classes}.")
+        block = input("Enter the letter of the block you want to add the class in: ").upper()
+    if block == "a" or block == "A" or block == "B" or block == "b" or block == "C" or block == "c":
         added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
-
-
-    #adding it
-    schedule[mod][block] = added_class
-    print(f"You added {added_class} to Mod {mod}, {block} Block. ") 
-    return schedule
+        valid_classes_list = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, electives]
+        # had to flatten the list
+        valid_classes = [x for sublist in valid_classes_list for x in sublist]
+        while added_class not in valid_classes:
+            print("Error. Please pick enter a valid class !")
+            print(f"Here is the course calendar if you need reminding: {valid_classes}.")
+            added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
+        schedule[mod - 1][block_names] = added_class
+        print(f"You added {added_class} to Mod {mod}, {block} Block. ") 
+        return schedule
+    elif block == "D" or block == "d":
+        added_sport = input(f"Enter the name of the sport you want to add to your Fall/Winter/Spring {block} Block: ")
+        if mod == 1:
+            valid_sports_listF = [d_blocksF]
+            valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
+            while added_sport not in valid_sportsF:
+                print("Error. Please pick enter a valid Fall sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsF}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to Mod your Fall {block} Block. ") 
+            return schedule
+        if mod == 2:
+            valid_sports_listF = [d_blocksF]
+            valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
+            while added_sport not in valid_sportsF:
+                print("Error. Please pick enter a valid Fall sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsF}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Fall {block} Block. ") 
+            return schedule
+        if mod == 3:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod + 1][block_names] = added_sport
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 4:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 5:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod - 3][block_names] = added_sport
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 6:
+            valid_sports_listS = [d_blocksS]
+            valid_sportsS = [x for sublist in valid_sports_listS for x in sublist]
+            while added_sport not in valid_sportsS:
+                print("Error. Please pick enter a valid Spring sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsS}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Spring {block} Block. ") 
+            return schedule
+        if mod == 7:
+            valid_sports_listS = [d_blocksS]
+            valid_sportsS = [x for sublist in valid_sports_listS for x in sublist]
+            while added_sport not in valid_sportsS:
+                print("Error. Please pick enter a valid Spring sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsS}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Spring {block} Block. ") 
+            return schedule
 
 
 #change class
 def change_class(schedule):
+    #user says what they want to add
+    mod = int(input("Enter the number of the mod you want to change a class/d-block to: "))
+    valid_mods = [1, 2, 3, 4, 5, 6, 7]
+    while mod not in valid_mods:
+        print("Error. Please pick enter a number 1-7.")
+        mod = int(input("Enter the number of the mod you want to change a class/d-block to: "))
+
+    block = input("Enter the letter of the block you want to change the class in: ").upper()
+    block_names = f"{block} Block"
+    valid_blocks = ["a", "A", "B", "b", "C", "c", "D", "d", "E", "e"]
+    while block not in valid_blocks:
+        print("Error. Please pick enter: 'A', 'B', 'C', 'D', or 'E' !")
+        block = input("Enter the letter of the block you want to change the class in: ").upper()
+    if block == "a" or block == "A" or block == "B" or block == "b" or block == "C" or block == "c":
+        added_class = input(f"Enter the name of the class you want to change in {block} Block: ")
+        valid_classes_list = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, electives]
+        # had to flatten the list
+        valid_classes = [x for sublist in valid_classes_list for x in sublist]
+        while added_class not in valid_classes:
+            print("Error. Please pick enter a valid class !")
+            print(f"Here is the course calendar if you need reminding: {valid_classes}.")
+            added_class = input(f"Enter the name of the class you want to change in {block} Block: ")
+        schedule[mod - 1][block_names] = added_class
+        print(f"You added {added_class} to Mod {mod}, {block} Block. ") 
+        return schedule
+    elif block == "D" or block == "d":
+        added_sport = input(f"Enter the name of the sport you want to add to your Fall/Winter/Spring {block} Block: ")
+        if mod == 1:
+            valid_sports_listF = [d_blocksF]
+            valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
+            while added_sport not in valid_sportsF:
+                print("Error. Please pick enter a valid Fall sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsF}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to Mod your Fall {block} Block. ") 
+            return schedule
+        if mod == 2:
+            valid_sports_listF = [d_blocksF]
+            valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
+            while added_sport not in valid_sportsF:
+                print("Error. Please pick enter a valid Fall sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsF}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Fall {block} Block. ") 
+            return schedule
+        if mod == 3:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod + 1][block_names] = added_sport
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 4:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 5:
+            valid_sports_listW = [d_blocksW]
+            valid_sportsW = [x for sublist in valid_sports_listW for x in sublist]
+            while added_sport not in valid_sportsW:
+                print("Error. Please pick enter a valid Winter sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsW}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+            schedule[mod - 3][block_names] = added_sport
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Winter {block} Block. ") 
+            return schedule
+        if mod == 6:
+            valid_sports_listS = [d_blocksS]
+            valid_sportsS = [x for sublist in valid_sports_listS for x in sublist]
+            while added_sport not in valid_sportsS:
+                print("Error. Please pick enter a valid Spring sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsS}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+            schedule[mod][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Spring {block} Block. ") 
+            return schedule
+        if mod == 7:
+            valid_sports_listS = [d_blocksS]
+            valid_sportsS = [x for sublist in valid_sports_listS for x in sublist]
+            while added_sport not in valid_sportsS:
+                print("Error. Please pick enter a valid Spring sport !")
+                print(f"Here is the course calendar if you need reminding: {valid_sportsS}.")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+            schedule[mod - 2][block_names] = added_sport
+            schedule[mod - 1][block_names] = added_sport
+            print(f"You added {added_sport} to your Spring {block} Block. ") 
+            return schedule
+
+'''
     #user says what they want to add
     block = input("Enter the block you want to change: ")
     if block in schedule:
@@ -236,6 +389,7 @@ def change_class(schedule):
         elif user_input == "no":
             print("Okay.")
     return schedule
+'''
 
 #drop class
 def drop_class(schedule):
@@ -268,9 +422,15 @@ def main():
     if user_input == "add":
         add_class(schedule)
     elif user_input == "change":
-        change_class()
+        change_class(schedule)
     elif user_input == "drop":
         drop_class()
 
     print("Here is your final schedule: ")
+    for i, mod in enumerate(schedule, start=1):
+        print()
+        print(f"    Mod {i} ")
+        for block, classe in mod.items():
+            print(f"{block}: {classe}")
+
 main()
