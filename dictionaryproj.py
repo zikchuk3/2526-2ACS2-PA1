@@ -1,5 +1,14 @@
-import random
+'''
 
+resources:
+.items(): https://www.w3schools.com/python/ref_dictionary_items.asp
+enumerate(): https://www.w3schools.com/python/ref_func_enumerate.asp
+set(): https://www.w3schools.com/python/python_sets.asp
+add(): https://www.w3schools.com/python/ref_set_add.asp
+'''
+
+import random
+'''
 #mods
 mod1 = {
     "A Block": "",
@@ -50,38 +59,95 @@ mod7 = {
     "D Block": "",
     "E Block": ""
 }
-# mods= [mod1, mod2, mod3, mod4, mod5, mod6, mod7]
-
+'''
 #lists of classes d blocks and e blocks
 classes_list_english = ["English I", "English II", "English III", "English IV"]
 classes_list_math = ["Geometry", "Algebra I", "Algebra II", "Pre-Calculus", "Calculus AB", "Calculus BC", "Statistics", "Linear Algebra", "Differiential Equations" ]
-classes_list_history = ["Global I", "Global II", "American History", "History Capstone Seminar", "Research Seminar"]
+classes_list_history = ["Global I", "Global II", "American History"]
 classes_list_science = ["Biology", "Chemistry", "Physics"]
 #co_curric = ["Sophomore Co-Curric", "Junior Co-Corric", "Senior Co-Curric"]
 classes_list_languages = ["Spanish I", "Spanish II", "Spanish III", "Spanish IV", "French I", "Frecnh II", "French III", "French IV", "Latin I", "Latin II", "Latin III", "Latin IV"]
-electives = ["Free", "Admissions", "Library Helper", "CS1", "CS2", "CS3", "Digital Art & Animation", "Drawing", "Painting", "Art Seminar", "Computer Science Seminar", "Robotics", "Public Speaking", "Fibers & Fashion", "Photography", "Sports Psychology", "Ceramics" ]
+electives = ["Free", "Admissions", "Library Helper", "CS1", "CS2", "CS3", "Digital Art & Animation", "Drawing", "Painting", "Art Seminar", "Computer Science Seminar", "Robotics", "Public Speaking", "Fibers & Fashion", "Photography", "Sports Psychology", "Ceramics", "History Capstone Seminar", "Research Seminar" ]
 d_blocksF = ["Feild Hockey", "Swimming for Conditioning", "Cross Country", "Soccer", "Tennis", "Volleyball", "Yearbook", "Advanced Fitness", "Stagecraft", "Fall Play"]
 d_blocksW = ["Basektball", "Rock Climbing", "Swim", "Model UN", "Advanced Fitness", "Yearbook", "Stagecraft", "Winter Musical"]
 d_blocksS = ["Track & Feild", "Tennis", "Softball", "Lacrosse", "Advanced Fitness", "Nature Walks"]
 e_blocks = ["Chorus", "Orchestra" ]
 
+#made an empty list/dictionary like this using a for loop because it I needed to call mods instead of 7 different mods
+mods = []
+for i in range(7):
+    mods.append({
+        "A Block": "",
+        "B Block": "",
+        "C Block": "",
+        "D Block": "",
+        "E Block": ""
+    })
 
 #making the schedule
-def make_schedule(block):
+def make_schedule():
+    #so that the classes only show 3 times
+    used_blocks = {}
+    for i in range(7):
+        # set is store multiple items in one variable, and I need to put the used classes somewhere
+        used_blocks[i] = set() 
+
+
+    classes = {
     #random choice of classes/dblocks for schedules 
     #will just make electives and e blocks add-able
-    english = random.choice(classes_list_english)
-    math = random.choice(classes_list_math)
-    history = random.choice(classes_list_history)
-    science = random.choice(classes_list_science)
-    lang = random.choice(classes_list_languages)
-    elect = random.choice(electives)
-    classes = [english, math, history, science, lang, elect]
+    "english": random.choice(classes_list_english),
+    "math": random.choice(classes_list_math),
+    "history": random.choice(classes_list_history),
+    "science": random.choice(classes_list_science),
+    "lang": random.choice(classes_list_languages),
+    }
 
+    #random choice for d blocks and e block
     fall = random.choice(d_blocksF)
     winter = random.choice(d_blocksW)
     spring = random.choice(d_blocksS)
+    ebs = random.choice(e_blocks)
 
+    #to make a mod/block pair, then shuffle, and assign a class to that pair and in range(7) for each mod
+    blocks = []
+    for mod in range(7):
+        for block in ["A Block", "B Block", "C Block"]:
+            blocks.append((mod, block))
+    random.shuffle(blocks)
+
+    #classe because I can't use class
+    #items is to get one of the subjects in classes dictionary
+    for subject, classe in classes.items():
+        used = 0
+        while used < 3:
+            mod, block = random.choice(blocks)
+            #if the subject has not been used (3 times) and the mod.block pair is empty, add a class, add that class to used blocks, remove it from the blocks list, and do +1 used for that subject and class
+            if subject not in used_blocks[mod] and mods[mod][block] == "":
+                mods[mod][block] = classe
+                used_blocks[mod].add(subject)
+                blocks.remove((mod, block))
+                used += 1
+
+    #to give random elective
+    for mod, block in blocks:
+        mods[mod][block] = random.choice(electives)
+
+    #enumerate takes an iterable (object that can be looped) and loops it at a certain start
+    #this is so the mods list of dictionary starts at index 1 (but that index is technically 0 its just named 1) and just makes it easier 
+    for i, mod in enumerate(mods, start=1):
+        if i <= 2:
+            mod["D Block"] = fall
+        elif i <= 5:
+            mod["D Block"] = winter
+        else:
+            mod["D Block"] = spring
+
+        mod["E Block"] = ebs
+
+    return mods
+
+'''
 #randomly generate into class variable and refer to that varaiable to make it 
     for block in mod1:
         if block in ["A Block", "B Block", "C Block"]:
@@ -119,15 +185,34 @@ def make_schedule(block):
         mod7["D Block"] = spring
         mod7["E Block"] = random.choice(e_blocks + ["Free"])
 
+'''
+
 #add class
 def add_class(schedule):
     #user says what they want to add
-    block = input("Enter the block you want to add the class in: ")
+    mod = int(input("Enter the number of the mod you want to add a class to: "))
+    valid_mods = [1, 2, 3, 4, 5, 6, 7]
+    while mod not in valid_mods:
+        print("Error. Please pick enter a number 1-7.")
+        mod = int(input("Enter the number of the mod you want to add a class to: "))
 
-    added_class = input(f"Enter the name of the class you want to add to {block}: ")
+    block = input("Enter the letter of the block you want to add the class in: ").upper
+    valid_blocks = ["A", "B", "C", "D", "E"]
+    while block not in valid_blocks:
+        print("Error. Please pick enter: 'A', 'B', 'C', 'D', or 'E' !")
+        block = input("Enter the letter of the block you want to add the class in: ").upper
+
+    added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
+    valid_classes = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, d_blocksF, d_blocksS, d_blocksW, electives, e_blocks]
+    while added_class not in valid_classes:
+        print("Error. Please pick enter a valid class !")
+        print(f"Here is the course calendar if you need reminding: {valid_classes}.")
+        added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
+
+
     #adding it
-    schedule[block] = added_class
-    print(f"You added {added_class} to {block}. ") 
+    schedule[mod][block] = added_class
+    print(f"You added {added_class} to Mod {mod}, {block} Block. ") 
     return schedule
 
 
@@ -167,95 +252,25 @@ def main():
     #welcome in the offic 
     print("Welcome to Mrs. Caroll's office.")
     print("Here is your current schedule: ")
-    print()
-    print("Mod 1:")
-    for block in mod1:
-        make_schedule(mod1)
-        print(f"{block}: {mod1[block]}")
-    print()
-    print("Mod 2:")
-    for block in mod2:
-        make_schedule(mod2)
-        print(f"{block}: {mod2[block]}")
-    print()
-    print("Mod 3:")
-    for block in mod3:
-        make_schedule(mod3)
-        print(f"{block}: {mod3[block]}")
-    print()
-    print("Mod 4:")
-    for block in mod4:
-        make_schedule(mod4)
-        print(f"{block}: {mod4[block]}")
-    print()
-    print("Mod 5:")
-    for block in mod5:
-        print(f"{block}: {mod5[block]}")
-    print()
-    print("Mod 6:")
-    for block in mod6:
-        print(f"{block}: {mod6[block]}")
-    print()
-    print("Mod 7:")
-    for block in mod7:
-        print(f"{block}: {mod7[block]}")
+    schedule = make_schedule()  
+    for i, mod in enumerate(schedule, start=1):
+        print()
+        print(f"    Mod {i} ")
+        for block, classe in mod.items():
+            print(f"{block}: {classe}")
+
+
     user_input = input("Would you like to add, change, or drop a class? ").lower()
     valid_actions = ["add", "drop", "change"]
     while user_input not in valid_actions:
         print("Error. Please pick 'add', 'change' or 'drop'.")
         user_input = input("Would you like to add, change, or drop a class? ").lower()
     if user_input == "add":
-        user_choice = input("For what mod?")
-        valid_actions = ["1","2","3","4","5","6","7"]
-        while user_choice not in valid_actions:
-            print("Error. Please enter an number from 1-7")
-            user_choice = input("For what mod? ")
-        if user_choice == "1":
-            for block in mod1:
-                print(f"{block}: {mod1[block]}")
-            add_class(mod1)
-        if user_choice == "2":
-            for block in mod2:
-                print(f"{block}: {mod2[block]}")
-            add_class(mod2)
-        if user_choice == "3":
-            for block in mod3:
-                print(f"{block}: {mod3[block]}")
-            add_class(mod3)
-        if user_choice == "4":
-            for block in mod4:
-                print(f"{block}: {mod4[block]}")
-            add_class(mod4)
-        if user_choice == "5":
-            for block in mod5:
-                print(f"{block}: {mod5[block]}")
-            add_class(mod5)
-        if user_choice == "6":
-            for block in mod6:
-                print(f"{block}: {mod6[block]}")
-            add_class(mod6)
-        if user_choice == "7":
-            for block in mod7:
-                print(f"{block}: {mod7[block]}")
-            add_class(mod7)
+        add_class(schedule)
     elif user_input == "change":
         change_class()
     elif user_input == "drop":
         drop_class()
 
     print("Here is your final schedule: ")
-    for block in mod1:
-        print(f"{block}: {mod1[block]}")
-    for block in mod2:
-        print(f"{block}: {mod2[block]}")
-    for block in mod3:
-        print(f"{block}: {mod3[block]}")
-    for block in mod4:
-        print(f"{block}: {mod4[block]}")
-    for block in mod5:
-        print(f"{block}: {mod5[block]}")
-    for block in mod6:
-        print(f"{block}: {mod6[block]}")
-    for block in mod7:
-        print(f"{block}: {mod7[block]}")
 main()
