@@ -1,14 +1,39 @@
 '''
-
+Author: Zikora C
+Program Title: Create your mod schedule!
+Program desc: You can go to Mrs. Carroll's office and drop, add, or change a class/d-block/e-block.
 resources:
+
+::::::Reflection:::::
+problems I faced:
+- I struggled with making the schedule at first because I wanted to randomize it, I figured that out and put in the block comments what I did (I basically just did a for loop in range(7) with the dictionary instead of 7 different dictionaries and that helped a lot with future things)
+- I struggled with making the add_class function at first because I needed to figure out how to put the user_input in the dictionary place, I had to do < block_names = f"{block} Block" > so that when I call the dictionary like this < schedule[mod - 1][block_names] > it puts the class in
+- I wanted to restart the code and save the schedule, and I figured out that I can set the schedule to None so the first time it gives a new one, but when it restarts it will have the same one (see main function)
+
+what I'm proud of:
+- I am proud of doing so much so comfortably, I did not have to look up much stuff as compared to CS1 because I learned a lot
+- having patience to do this
+- being able to make the schedule eventually because that took up a lot of time
+
+what I would add/change:
+- I would organize it by grade so I could add co-curric
+- I would stylize it more because this time I didn't get to space it out and make it more visually appealing
+  - I would also import time so it can flow better
+- there must be an easier way to do some of the things I did, so I would do that
+
+Pledge: I have never given nor received external help on this assignment,
+with the exception of the following sources:
 .items(): https://www.w3schools.com/python/ref_dictionary_items.asp
 enumerate(): https://www.w3schools.com/python/ref_func_enumerate.asp
 set(): https://www.w3schools.com/python/python_sets.asp
 add(): https://www.w3schools.com/python/ref_set_add.asp
 flatten a list: https://www.geeksforgeeks.org/python/python-flatten-list-to-individual-elements/
+None keyword: https://www.w3schools.com/python/ref_keyword_none.asp
+Google - https://www.google.com
 '''
 
 import random
+#deleted this
 '''
 #mods
 mod1 = {
@@ -62,17 +87,17 @@ mod7 = {
 }
 '''
 #lists of classes d blocks and e blocks
-classes_list_english = ["English I", "English II", "English III", "English IV"]
-classes_list_math = ["Geometry", "Algebra I", "Algebra II", "Pre-Calculus", "Calculus AB", "Calculus BC", "Statistics", "Linear Algebra", "Differiential Equations" ]
-classes_list_history = ["Global I", "Global II", "American History"]
-classes_list_science = ["Biology", "Chemistry", "Physics"]
-#co_curric = ["Sophomore Co-Curric", "Junior Co-Corric", "Senior Co-Curric"]
-classes_list_languages = ["Spanish I", "Spanish II", "Spanish III", "Spanish IV", "French I", "Frecnh II", "French III", "French IV", "Latin I", "Latin II", "Latin III", "Latin IV"]
-electives = ["Free", "Admissions", "Library Helper", "CS1", "CS2", "CS3", "Digital Art & Animation", "Drawing", "Painting", "Art Seminar", "Computer Science Seminar", "Robotics", "Public Speaking", "Fibers & Fashion", "Photography", "Sports Psychology", "Ceramics", "History Capstone Seminar", "Research Seminar" ]
-d_blocksF = ["Feild Hockey", "Swimming for Conditioning", "Cross Country", "Soccer", "Tennis", "Volleyball", "Yearbook", "Advanced Fitness", "Stagecraft", "Fall Play"]
-d_blocksW = ["Basektball", "Rock Climbing", "Swim", "Model UN", "Advanced Fitness", "Yearbook", "Stagecraft", "Winter Musical"]
-d_blocksS = ["Track & Feild", "Tennis", "Softball", "Lacrosse", "Advanced Fitness", "Nature Walks"]
-e_blocks = ["Chorus", "Orchestra" ]
+classes_list_english = ["ENGLISH I", "ENGLISH II", "ENGLISH III", "ENGLISH IV"]
+classes_list_math = ["GEOMETRY", "ALGEBRA I", "ALGEBRA II", "PRE-CALCULUS", "CALCULUS AB", "CALCULUS BC", "STATISTICS", "LINEAR ALGEBRA", "DIFFERENTIAL EQUATIONS"]
+classes_list_history = ["GLOBAL I", "GLOBAL II", "AMERICAN HISTORY"]
+classes_list_science = ["BIOLOGY", "CHEMISTRY", "PHYSICS", "AP BIOLOGY", "AP CHEMISTRY", "AP PHYSICS"]
+#co_curric = ["SOPHOMORE CO-CURRIC", "JUNIOR CO-CURRIC", "SENIOR CO-CURRIC"]
+classes_list_languages = ["SPANISH I", "SPANISH II", "SPANISH III", "SPANISH IV", "FRENCH I", "FRENCH II", "FRENCH III", "FRENCH IV", "LATIN I", "LATIN II", "LATIN III", "LATIN IV", "AP SPANISH", "AP FRENCH", "AP LATIN"]
+electives = ["FREE", "ADMISSIONS", "LIBRARY HELPER", "CS1", "CS2", "CS3", "DIGITAL ART & ANIMATION", "DRAWING", "PAINTING", "ART SEMINAR", "COMPUTER SCIENCE SEMINAR", "ROBOTICS", "PUBLIC SPEAKING", "FIBERS & FASHION", "PHOTOGRAPHY", "SPORTS PSYCHOLOGY", "CERAMICS", "HISTORY CAPSTONE SEMINAR", "RESEARCH SEMINAR"]
+d_blocksF = ["FIELD HOCKEY", "SWIMMING FOR CONDITIONING", "CROSS COUNTRY", "SOCCER", "TENNIS", "VOLLEYBALL", "YEARBOOK", "ADVANCED FITNESS", "STAGECRAFT", "FALL PLAY"]
+d_blocksW = ["BASKETBALL", "ROCK CLIMBING", "SWIM", "MODEL UN", "ADVANCED FITNESS", "YEARBOOK", "STAGECRAFT", "WINTER MUSICAL"]
+d_blocksS = ["TRACK & FIELD", "TENNIS", "SOFTBALL", "LACROSSE", "ADVANCED FITNESS", "NATURE WALKS"]
+e_blocks = ["CHORUS", "ORCHESTRA"]
 
 #made an empty list/dictionary like this using a for loop because it I needed to call mods instead of 7 different mods
 mods = []
@@ -148,15 +173,18 @@ def make_schedule():
 
     return mods
 
+numbers = ["1", "2", "3", "4", "5", "6", "7"]
 
 #add class
 def add_class(schedule):
     #user says what they want to add
-    mod = int(input("What mod would you like to add to? Enter a number 1-7: "))
-    valid_mods = [1, 2, 3, 4, 5, 6, 7]
-    while mod not in valid_mods:
-        print("Error. Please pick enter a number 1-7.")
-        mod = int(input("What mod would you like to add to? Enter a number 1-7: "))
+    mod_input = input("What mod would you like to add to? Enter a number 1-7: ")
+    while mod_input in numbers:
+        mod = int(mod_input)
+        break
+    else: 
+        print("Invalid. Enter a number")
+        mod = input("What mod would you like to add to? Enter a number 1-7: ")
 
     block = input("What block would you like to add to? Enter the letter of the block: ").upper()
     # so it can connect back to the dictionary
@@ -168,14 +196,14 @@ def add_class(schedule):
     if block == "a" or block == "A" or block == "B" or block == "b" or block == "C" or block == "c":
         #had to do the mod - 1 because of the way index works 
         if schedule[mod - 1][block_names] == "Free":
-            added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
+            added_class = input(f"Enter the name of the class you want to add to {block} Block: ").upper()
             valid_classes_list = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, electives]
             # had to flatten the list
             valid_classes = [x for sublist in valid_classes_list for x in sublist]
             while added_class not in valid_classes:
                 print("Error. Please pick enter a valid class !")
                 print(f"Here is the course calendar if you need reminding: {valid_classes}.")
-                added_class = input(f"Enter the name of the class you want to add to {block} Block: ")
+                added_class = input(f"Enter the name of the class you want to add to {block} Block: ").upper()
             schedule[mod - 1][block_names] = added_class
             print(f"You added {added_class} to Mod {mod}, {block} Block. ") 
         else:
@@ -184,14 +212,15 @@ def add_class(schedule):
     
     #I made this here but realized I might not even need it because it is already full
     elif block == "D" or block == "d":
-        added_sport = input(f"Enter the name of the sport you want to add to your Fall/Winter/Spring {block} Block: ")
+        added_sport = input(f"Enter the name of the sport you want to add to your Fall/Winter/Spring {block} Block: ").upper()
+        schedule[mod - 1][block_names] = added_class
         if mod == 1:
             valid_sports_listF = [d_blocksF]
             valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
             while added_sport not in valid_sportsF:
                 print("Error. Please pick enter a valid Fall sport !")
                 print(f"Here are the fall sports if you need reminding: {valid_sportsF}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ").upper()
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You added {added_sport} to Mod your Fall {block} Block. ") 
@@ -202,10 +231,10 @@ def add_class(schedule):
             while added_sport not in valid_sportsF:
                 print("Error. Please pick enter a valid Fall sport !")
                 print(f"Here are the fall sports if you need reminding: {valid_sportsF}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Fall {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
-            print(f"You added {added_sport} to your Fall {block} Block. ") 
+            print(f"You added {added_sport} to your Fall {block} Block. ")
             return schedule
         if mod == 3:
             valid_sports_listW = [d_blocksW]
@@ -213,7 +242,7 @@ def add_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ").upper()
             schedule[mod + 1][block_names] = added_sport
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -225,7 +254,7 @@ def add_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -237,7 +266,7 @@ def add_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Winter {block} Block: ").upper()
             schedule[mod - 3][block_names] = added_sport
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -249,7 +278,7 @@ def add_class(schedule):
             while added_sport not in valid_sportsS:
                 print("Error. Please pick enter a valid Spring sport !")
                 print(f"Here are the spring sports if you need reminding: {valid_sportsS}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ").upper()
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You added {added_sport} to your Spring {block} Block. ") 
@@ -260,7 +289,7 @@ def add_class(schedule):
             while added_sport not in valid_sportsS:
                 print("Error. Please pick enter a valid Spring sport !")
                 print(f"Here are the spring sports if you need reminding: {valid_sportsS}.")
-                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to add to your Spring {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You added {added_sport} to your Spring {block} Block. ") 
@@ -270,11 +299,13 @@ def add_class(schedule):
 #change class
 def change_class(schedule):
     #user says what they want to change
-    mod = int(input("What mod would you like to change? Enter a number 1-7: "))
-    valid_mods = [1, 2, 3, 4, 5, 6, 7]
-    while mod not in valid_mods:
-        print("Error. Please pick enter a number 1-7.")
-        mod = int(input("What mod would you like to change? Enter a number 1-7: "))
+    mod_input = input("What mod would you like to change? Enter a number 1-7: ")
+    while mod_input in numbers:
+        mod = int(mod_input)
+        break
+    else: 
+        print("Invalid. Enter a number")
+        mod = input("What mod would you like to add to? Enter a number 1-7: ")
 
     block = input("What block would you like to change? Enter the letter of the block: ").upper()
     block_names = f"{block} Block"
@@ -283,27 +314,27 @@ def change_class(schedule):
         print("Error. Please pick enter: 'A', 'B', 'C', 'D', or 'E' !")
         block = input("What block would you like to change? Enter the letter of the block: ").upper()
     if block == "a" or block == "A" or block == "B" or block == "b" or block == "C" or block == "c":
-        added_class = input(f"Enter the name of the class you want to change in {block} Block: ")
+        added_class = input(f"Enter the name of the class you want to change to your {block} Block: ").upper()
         valid_classes_list = [classes_list_english, classes_list_history, classes_list_languages, classes_list_math, classes_list_science, electives]
         # had to flatten the list
         valid_classes = [x for sublist in valid_classes_list for x in sublist]
         while added_class not in valid_classes:
             print("Error. Please pick enter a valid class !")
             print(f"Here is the course calendar if you need reminding: {valid_classes}.")
-            added_class = input(f"Enter the name of the class you want to change in {block} Block: ")
+            added_class = input(f"Enter the name of the class you want to change to your {block} Block: ").upper()
         schedule[mod - 1][block_names] = added_class
         print(f"You changed your Mod {mod}, {block} Block to {added_class}. ") 
         return schedule
     #seperated the mods like this because it needed to be for each season not just the mod
     elif block == "D" or block == "d":
-        added_sport = input(f"Enter the name of the sport you want to change for your Fall/Winter/Spring {block} Block: ")
+        added_sport = input(f"Enter the name of the sport you want to change to your Fall/Winter/Spring {block} Block: ").upper()
         if mod == 1:
             valid_sports_listF = [d_blocksF]
             valid_sportsF = [x for sublist in valid_sports_listF for x in sublist]
             while added_sport not in valid_sportsF:
                 print("Error. Please pick enter a valid Fall sport !")
                 print(f"Here are the fall sports if you need reminding: {valid_sportsF}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Fall {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Fall {block} Block: ").upper()
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You changed {added_sport} to your Fall {block} Block. ") 
@@ -314,7 +345,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsF:
                 print("Error. Please pick enter a valid Fall sport !")
                 print(f"Here are the fall sports if you need reminding: {valid_sportsF}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Fall {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Fall {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You changed {added_sport} to your Fall {block} Block. ") 
@@ -325,7 +356,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ").upper()
             schedule[mod + 1][block_names] = added_sport
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -337,7 +368,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -349,7 +380,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsW:
                 print("Error. Please pick enter a valid Winter sport !")
                 print(f"Here are the winter sports if you need reminding: {valid_sportsW}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Winter {block} Block: ").upper()
             schedule[mod - 3][block_names] = added_sport
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
@@ -361,7 +392,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsS:
                 print("Error. Please pick enter a valid Spring sport !")
                 print(f"Here is are the spring sports if you need reminding: {valid_sportsS}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Spring {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Spring {block} Block: ").upper()
             schedule[mod][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You changed {added_sport} to your Spring {block} Block. ") 
@@ -372,7 +403,7 @@ def change_class(schedule):
             while added_sport not in valid_sportsS:
                 print("Error. Please pick enter a valid Spring sport !")
                 print(f"Here is are the spring sports if you need reminding: {valid_sportsS}.")
-                added_sport = input(f"Enter the name of the sport you want to change to your Spring {block} Block: ")
+                added_sport = input(f"Enter the name of the sport you want to change to your Spring {block} Block: ").upper()
             schedule[mod - 2][block_names] = added_sport
             schedule[mod - 1][block_names] = added_sport
             print(f"You changed {added_sport} to your Spring {block} Block. ") 
@@ -381,11 +412,13 @@ def change_class(schedule):
 #drop class
 def drop_class(schedule):
     #user says what they want to drop
-    mod = int(input("What mod would you like to drop something from? Enter a number 1-7: "))
-    valid_mods = [1, 2, 3, 4, 5, 6, 7]
-    while mod not in valid_mods:
-        print("Error. Please pick enter a number 1-7.")
-        mod = int(input("What mod would you like to drop something from? Enter a number 1-7: "))
+    mod_input = input("What mod would you like to drop something from? Enter a number 1-7: ")
+    while mod_input in numbers:
+        mod = int(mod_input)
+        break
+    else: 
+        print("Invalid. Enter a number")
+        mod = input("What mod would you like to add to? Enter a number 1-7: ")
 
     block = input("What block would you like to drop? Enter the letter of the block: ").upper()
     block_names = f"{block} Block"
