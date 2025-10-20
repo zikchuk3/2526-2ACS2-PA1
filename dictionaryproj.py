@@ -33,59 +33,7 @@ Google - https://www.google.com
 '''
 
 import random
-#deleted this
-'''
-#mods
-mod1 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod2 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod3 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod4 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod5 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod6 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-mod7 = {
-    "A Block": "",
-    "B Block": "",
-    "C Block": "",
-    "D Block": "",
-    "E Block": ""
-}
-'''
+
 #lists of classes d blocks and e blocks
 classes_list_english = ["ENGLISH I", "ENGLISH II", "ENGLISH III", "ENGLISH IV"]
 classes_list_math = ["GEOMETRY", "ALGEBRA I", "ALGEBRA II", "PRE-CALCULUS", "CALCULUS AB", "CALCULUS BC", "STATISTICS", "LINEAR ALGEBRA", "DIFFERENTIAL EQUATIONS"]
@@ -100,15 +48,12 @@ d_blocksS = ["TRACK & FIELD", "TENNIS", "SOFTBALL", "LACROSSE", "ADVANCED FITNES
 e_blocks = ["CHORUS", "ORCHESTRA"]
 
 #made an empty list/dictionary like this using a for loop because it I needed to call mods instead of 7 different mods
+'''
+setting up a version of PA1 that uses files isntead of dictionaries
+'''
 mods = []
 for i in range(7):
-    mods.append({
-        "A Block": "",
-        "B Block": "",
-        "C Block": "",
-        "D Block": "",
-        "E Block": ""
-    })
+    mods.append({}})
 
 #making the schedule
 def make_schedule():
