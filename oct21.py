@@ -12,9 +12,10 @@ To create a new file in Python, just open one that doesnt exist in an edit mode
 #new_file = open("new_file.txt", "x") #just creates new file
 #new_file.write("HI")
 
-new_file = open("new_file.txt", "a") #can create file w/ append and write to
-new_file.write("yo")
+new_file = open("new_file.txt", "a") #can create file w/ append and write to / adds if already exists
+new_file.write("hi")
 
+new_file.close()
 
 #write a while loop that looks for mod 2
 '''
