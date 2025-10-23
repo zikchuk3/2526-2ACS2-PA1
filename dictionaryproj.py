@@ -18,7 +18,7 @@ what I'm proud of:
 what I would add/change:
 - I would organize it by grade so I could add co-curric
 - I would stylize it more because this time I didn't get to space it out and make it more visually appealing
-  - I would also import time so it can flow better
+- I would also import time so it can flow better
 - there must be an easier way to do some of the things I did, so I would do that
 
 Pledge: I have never given nor received external help on this assignment,
